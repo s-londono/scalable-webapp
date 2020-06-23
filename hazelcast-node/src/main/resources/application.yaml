@@ -1,0 +1,7 @@
+hazelcastnode:
+  # Whenever the host has several network interfaces, specify the ones to connect through
+  interfaces:
+    - "127.*.*.*"
+  # Specify the IPs of the nodes (a.k.a. members) of the cluster. Can be just a few of them
+  members-list:
+    - "127.0.0.1"
