@@ -14,7 +14,6 @@ public class StockController {
 
   @GetMapping("/stock")
   public Map<Long, Item> getStock(@RequestParam(value = "code", required = false, defaultValue = "A") String code) {
-
     logger.debug("Getting Stock. Code: {}", code);
 
     Item i1 = new Item(1L, "Alpha");
