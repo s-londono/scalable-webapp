@@ -1,3 +1,5 @@
-console.debug("Starting up...");
+$(document).ready(function () {
+  console.debug("Document ready");
+});
 
-window.alert("Hoah!");
+console.debug("Main script loaded");

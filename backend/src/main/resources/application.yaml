@@ -3,10 +3,10 @@ server:
 ---
 spring:
   profiles: development
-  # Templates reloading during development
   thymeleaf:
+    # Ensure that changes on templates have immediate effect during development
     prefix: "file://@project.basedir@/src/main/resources/templates/"
     cache: false
-  # Static resources reloading during development
   resources:
+    # Ensure that changes on static contents have immediate effect during development
     static-locations: "file://@project.basedir@/src/main/resources/static/"
