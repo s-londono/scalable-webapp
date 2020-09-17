@@ -17,6 +17,11 @@ public class ContextConfiguration {
     this.configProps = configProps;
   }
 
+  /**
+   * A bean of type com.hazelcast.config.Config powers-up a Hazelcast Instance on the Spring Context and provides its
+   * configuration. That is, to enable a Hazelcast Instance in a Spring Boot Application just add dependencies
+   * @return
+   */
   @Bean
   public Config hazelcastConfig() {
 

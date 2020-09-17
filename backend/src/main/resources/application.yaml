@@ -1,0 +1,12 @@
+server:
+  port: 8081
+---
+spring:
+  profiles: development
+  # Templates reloading during development
+  thymeleaf:
+    prefix: "file://@project.basedir@/src/main/resources/templates/"
+    cache: false
+  # Static resources reloading during development
+  resources:
+    static-locations: "file://@project.basedir@/src/main/resources/static/"

@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -22,7 +23,11 @@ public class StockController {
     Item i1 = new Item("A1", "Alpha Mk.I");
     Item i2 = new Item("A2", "Alpha Mk. II");
 
-    return Map.of(i1.getSku(), i1, i2.getSku(), i2);
+    Map<String, Item> result = new HashMap<>();
+    result.put(i1.getSku(), i1);
+    result.put(i2.getSku(), i2);
+
+    return result;
   }
 
   /**
