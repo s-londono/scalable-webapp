@@ -1,4 +1,4 @@
-package edu.sierralima.lab.backend.restservice;
+package edu.sierralima.lab.backend.controller;
 
 import edu.sierralima.lab.backend.model.Item;
 import org.slf4j.Logger;
@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class StockController {
-  private static final Logger logger = LoggerFactory.getLogger(StockController.class);
+@RequestMapping("/service")
+public class StockRestController {
+  private static final Logger logger = LoggerFactory.getLogger(StockRestController.class);
 
   /**
    * Retrieves all items currently in Stock
@@ -20,12 +21,10 @@ public class StockController {
   public Map<String, Item> getStock() {
     logger.debug("Get all Stock");
 
-    Item i1 = new Item("A1", "Alpha Mk.I");
-    Item i2 = new Item("A2", "Alpha Mk. II");
+    Item i3 = new Item("A3", "Alpha Mk.III");
 
     Map<String, Item> result = new HashMap<>();
-    result.put(i1.getSku(), i1);
-    result.put(i2.getSku(), i2);
+    result.put(i3.getSku(), i3);
 
     return result;
   }

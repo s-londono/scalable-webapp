@@ -2,7 +2,7 @@ server:
   port: 8081
 ---
 spring:
-  profiles: development
+  profiles: dev
   thymeleaf:
     # Ensure that changes on templates have immediate effect during development
     prefix: "file://@project.basedir@/src/main/resources/templates/"

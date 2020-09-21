@@ -1,4 +1,4 @@
-package edu.sierralima.lab.backend.restservice;
+package edu.sierralima.lab.backend.controller;
 
 import edu.sierralima.lab.backend.model.Item;
 import org.slf4j.Logger;
@@ -6,17 +6,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/web")
-public class WebStockController {
-  private static final Logger logger = LoggerFactory.getLogger(WebStockController.class);
+public class StockMvcController {
+  private static final Logger logger = LoggerFactory.getLogger(StockMvcController.class);
 
-  @GetMapping("stock")
+  @GetMapping("/stock")
   public String getStock(Model model) {
     logger.debug("Get all Stock");
 
