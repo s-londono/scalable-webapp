@@ -10,16 +10,22 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class ContextConfiguration {
 
+  private ConfigProperties config;
+
+  public ContextConfiguration(ConfigProperties config) {
+    this.config = config;
+  }
+
   @Bean
   public ClientConfig clientConfig() {
     ClientConfig hzClientCfg = new ClientConfig();
 
     hzClientCfg.getNetworkConfig()
-        .addAddress("127.0.0.1")
+        .addAddress(config.getHazelcastBindAddress())
         .setSmartRouting(false)
-        .addOutboundPortDefinition("34700-34710")
+        .addOutboundPortDefinition(config.getHazelcastOutboundPortDef())
         .setRedoOperation(false)
-        .setConnectionTimeout(5000);
+        .setConnectionTimeout(config.getHazelcastConnectionTimeout());
 
     return hzClientCfg;
   }

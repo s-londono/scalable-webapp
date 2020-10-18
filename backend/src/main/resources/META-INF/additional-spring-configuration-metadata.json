@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "backend.hazelcastclient.bind-address",
+      "type": "java.lang.String",
+      "description": "Description for backend.hazelcastclient.bind-address."
+    },
+    {
+      "name": "backend.hazelcastclient.outbound-port-def",
+      "type": "java.lang.String",
+      "description": "Description for backend.hazelcastclient.outbound-port-def."
+    },
+    {
+      "name": "backend.hazelcastclient.connection-timeout",
+      "type": "java.lang.String",
+      "description": "Description for backend.hazelcastclient.connection-timeout."
+    }
+  ] }
