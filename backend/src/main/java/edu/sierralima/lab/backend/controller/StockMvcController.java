@@ -18,6 +18,13 @@ public class StockMvcController {
   public String getStock(Model model) {
     logger.debug("Get all Stock");
 
+    if (model != null) {
+      Exception ex = new RuntimeException("Dummy Exception. Testing purposes");
+      logger.error("Error loading stock", ex);
+
+      return "error";
+    }
+
     Item i1 = new Item("A1", "Alpha Mk.I");
     Item i2 = new Item("A2", "Alpha Mk. II");
 

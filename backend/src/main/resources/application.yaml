@@ -1,3 +1,7 @@
+logging:
+  file:
+    name: "logs/backend.log"
+
 server:
   port: 8081
 backend:

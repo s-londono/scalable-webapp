@@ -15,7 +15,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // Enables simple memory-based msg broker to carry messages back to the client on destinations prefixed with /topic
     config.enableSimpleBroker("/topic");
 
-    // Prefix for messages that are bound for methods annotated with @MessageMapping (e.g. /app/ws/stock/broadcast)
+    // Prefix for messages that are bound for methods annotated with @MessageMapping (e.g. /stock-app/broadcast)
     config.setApplicationDestinationPrefixes("/stock-app");
   }
 
