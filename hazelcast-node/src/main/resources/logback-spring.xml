@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <jmxConfigurator/>
+  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_FILE}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+  <springProfile name="vagrant">
+    <root level="DEBUG">
+      <appender-ref ref="rollingFile"/>
+    </root>
+  </springProfile>
+  <springProfile name="prod">
+    <root level="INFO">
+      <appender-ref ref="rollingFile"/>
+    </root>
+  </springProfile>
+  <springProfile name="!prod &amp; !vagrant">
+    <root level="INFO">
+      <appender-ref ref="console"/>
+    </root>
+  </springProfile>
+</configuration>

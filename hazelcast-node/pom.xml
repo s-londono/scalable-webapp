@@ -10,7 +10,7 @@
   </parent>
   <groupId>edu.sierralima.lab</groupId>
   <artifactId>hazelcastnode</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>hazelcastnode</name>
   <description>Hazelcast node with custom configuration</description>
 
@@ -23,7 +23,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -35,7 +34,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast</artifactId>
@@ -45,6 +43,11 @@
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast-spring</artifactId>
       <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>6.4</version>
     </dependency>
   </dependencies>
 

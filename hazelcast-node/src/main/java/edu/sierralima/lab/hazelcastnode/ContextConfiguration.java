@@ -2,18 +2,20 @@ package edu.sierralima.lab.hazelcastnode;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.NetworkConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ContextConfiguration {
+  private static final Logger logger = LoggerFactory.getLogger(ContextConfiguration.class);
 
   private final ConfigProperties configProps;
 
   @Autowired
   public ContextConfiguration(ConfigProperties configProps) {
-
     this.configProps = configProps;
   }
 
@@ -24,20 +26,23 @@ public class ContextConfiguration {
    */
   @Bean
   public Config hazelcastConfig() {
-
     Config config = new Config();
     NetworkConfig netConfig = config.getNetworkConfig();
 
     // Can define the interfaces to connect through. Otherwise will connect through the first one found
     if (this.configProps.getInterfaces() != null) {
+      logger.info("Interfaces enabled: {}", this.configProps.getInterfaces());
+
       // Specify the network interfaces Hazelcast should use. Very useful for compatibility with Docker Swarm
       netConfig.getInterfaces()
-          .setEnabled(true)
-          .setInterfaces(this.configProps.getInterfaces());
+        .setEnabled(true)
+        .setInterfaces(this.configProps.getInterfaces());
     }
 
     // A MembersList being specified, means that we want to use TCP Discovery
     if (this.configProps.getMembersList() != null) {
+      logger.info("Members specified: {}", this.configProps.getMembersList());
+
       // Disable MultiCast discovery, which is enabled by default
       netConfig.getJoin()
           .getMulticastConfig()
