@@ -18,13 +18,6 @@ public class StockMvcController {
   public String getStock(Model model) {
     logger.debug("Get all Stock");
 
-    if (model != null) {
-      Exception ex = new RuntimeException("Dummy Exception. Testing purposes");
-      logger.error("Error loading stock", ex);
-
-      return "error";
-    }
-
     Item i1 = new Item("A1", "Alpha Mk.I");
     Item i2 = new Item("A2", "Alpha Mk. II");
 
@@ -32,7 +25,12 @@ public class StockMvcController {
     result.put(i1.getSku(), i1);
     result.put(i2.getSku(), i2);
 
-    model.addAttribute("stock", result);
+    try {
+      model.addAttribute("stock", result);
+    } catch (Exception ex) {
+      logger.error("Error processing stock response", ex);
+      return "error";
+    }
 
     return "stock";
   }

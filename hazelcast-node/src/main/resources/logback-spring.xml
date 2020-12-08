@@ -2,23 +2,34 @@
 <configuration>
   <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
   <jmxConfigurator/>
-  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${LOG_FILE}</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>10</maxHistory>
-    </rollingPolicy>
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
-  </appender>
   <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
   </appender>
   <springProfile name="vagrant">
+    <appender name="rollingFilePlain" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${LOG_FILE}</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <maxHistory>10</maxHistory>
+      </rollingPolicy>
+      <encoder>
+        <pattern>%d\t"%t"\t"%msg"%n</pattern>
+        <charset>utf8</charset>
+      </encoder>
+    </appender>
     <root level="DEBUG">
-      <appender-ref ref="rollingFile"/>
+      <appender-ref ref="rollingFilePlain"/>
     </root>
   </springProfile>
   <springProfile name="prod">
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${LOG_FILE}</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <maxHistory>10</maxHistory>
+      </rollingPolicy>
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
     <root level="INFO">
       <appender-ref ref="rollingFile"/>
     </root>

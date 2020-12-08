@@ -2,38 +2,40 @@
 <configuration>
   <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
   <jmxConfigurator/>
-  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${LOG_FILE}</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>10</maxHistory>
-    </rollingPolicy>
-    <encoder>
-      <pattern>${FILE_LOG_PATTERN}</pattern>
-    </encoder>
-  </appender>
-  <appender name="consolePlain" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d\t"%t"\t"%msg"%n</pattern>
-      <charset>utf8</charset>
-    </encoder>
-  </appender>
-  <appender name="consoleJson" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-      <customFields>{"module":"backend"}</customFields>
-    </encoder>
-  </appender>
-  <springProfile name="dev">
-    <root level="DEBUG">
+  <springProfile name="dev | vagrant">
+    <appender name="consolePlain" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%d\t"%t"\t"%msg"%n</pattern>
+        <charset>utf8</charset>
+      </encoder>
+    </appender>
+    <root level="INFO">
       <appender-ref ref="consolePlain"/>
     </root>
   </springProfile>
   <springProfile name="devjson">
+    <appender name="consoleJson" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <customFields>{"module":"backend"}</customFields>
+      </encoder>
+    </appender>
     <root level="DEBUG">
       <appender-ref ref="consoleJson"/>
     </root>
   </springProfile>
-  <root level="DEBUG">
-    <appender-ref ref="rollingFile"/>
-  </root>
+  <springProfile name="prod">
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${LOG_FILE}</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <maxHistory>10</maxHistory>
+      </rollingPolicy>
+      <encoder>
+        <pattern>${FILE_LOG_PATTERN}</pattern>
+      </encoder>
+    </appender>
+    <root level="DEBUG">
+      <appender-ref ref="rollingFile"/>
+    </root>
+  </springProfile>
 </configuration>

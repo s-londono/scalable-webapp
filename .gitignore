@@ -29,4 +29,3 @@ out/
 # Vagrant
 .vagrant/
 /vagrant-env/hznode/*.out
-/vagrant-env/hznode/*.log

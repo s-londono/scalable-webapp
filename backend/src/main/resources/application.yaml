@@ -20,3 +20,15 @@ spring:
   resources:
     # Ensure that changes on static contents have immediate effect during development
     static-locations: "file://@project.basedir@/src/main/resources/static/"
+
+---
+spring:
+  profiles: vagrant
+  thymeleaf:
+    # Ensure that changes on templates have immediate effect during development
+    prefix: "file://@project.basedir@/src/main/resources/templates/"
+    cache: false
+
+backend:
+  hazelcastclient:
+    bind-address: "172.28.128.11"

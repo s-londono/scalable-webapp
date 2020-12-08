@@ -4,13 +4,14 @@ var stompClient = null;
 
 // Using SockJS is not mandatory with @stomp/stomjs (https://stomp-js.github.io/#getting-started)
 function socketFactory() {
+  // Calling the SockJS constructor establishes a WS connection
   return new SockJS("/stock-ws");
 }
 
 // Reconsider using SockJS, which may have reconnection issues
 function stompClientFactory() {
   if (USE_SOCKJS) {
-    // It is possible to use other type of WebSockets (e.g. SockJS) by using the Stomp.over(ws) method.
+    // It is possible to use other type of WebSockets (e.g. SockJS, native) by using the Stomp.over(ws) method.
     // This method expects an object that conforms to the WebSocket definition
     var sockJjClient = socketFactory();
 
@@ -18,7 +19,7 @@ function stompClientFactory() {
     sockJjClient.onopen = function () { console.info(`SOCKJS: Connection opened`); };
     sockJjClient.onclose = function () { console.info(`SOCKJS: Connection closed`); };
 
-    return Stomp.over(socketFactory());
+    return Stomp.over(sockJjClient);
   } else {
     // By default, stomp.js will use the Web browser native WebSocket class to create the WebSocket
     return Stomp.client("ws://localhost:8081/stock-ws")
@@ -59,11 +60,11 @@ function handleDisconnected() {
 function connect() {
   stompClient = stompClientFactory();
 
-  // Client will send heartbeats every 20s (Default: 10s?)
+  // Client will send heartbeats every 10s (Default: 10s?)
   stompClient.heartbeat.outgoing = 10000;
 
-  // Client checks for heartbeats from the server every 20s (Default: 10s?)
-  // stompClient.heartbeat.incoming = 20000;
+  // Client checks for heartbeats from the server every 15s (Default: 10s?)
+  stompClient.heartbeat.incoming = 15000;
 
   // Add STOMP connection headers if necessary (e.g. login, passcode, client-id)
   var headers = {"client-id": "stockcl1"};
