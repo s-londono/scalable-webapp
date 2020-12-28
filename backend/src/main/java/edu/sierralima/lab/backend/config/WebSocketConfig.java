@@ -15,12 +15,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void configureMessageBroker(MessageBrokerRegistry config) {
     // Enables memory-based msg broker to carry messages back to the client on destinations with the specified prefixes
     // Refer to: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#websocket-stomp
-    config.enableSimpleBroker("/topic", "/queue")
+    config.enableSimpleBroker("/queue", "/topic")
       .setTaskScheduler(buildHeartbeatScheduler())
       .setHeartbeatValue(new long[] {10000, 15000}); // 1st: Incoming heartbeat time, 2nd: Outgoing heartbeat time
 
     // Prefix for messages that are bound for methods annotated with @MessageMapping (e.g. /stock-app/broadcast)
-    config.setApplicationDestinationPrefixes("/stock-app");
+    // Note that adding /topic is required to map methods to topic subscriptions using @SubscribeMapping
+    config.setApplicationDestinationPrefixes("/stock-app", "/topic");
   }
 
   @Override

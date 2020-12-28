@@ -28,6 +28,9 @@ spring:
     # Ensure that changes on templates have immediate effect during development
     prefix: "file://@project.basedir@/src/main/resources/templates/"
     cache: false
+  resources:
+    # Ensure that changes on static contents have immediate effect during development
+    static-locations: "file://@project.basedir@/src/main/resources/static/"
 
 backend:
   hazelcastclient:

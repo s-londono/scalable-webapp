@@ -29,7 +29,7 @@ function stompClientFactory() {
 function sendDummyWSRequest() {
   var headers = {};
 
-  stompClient.send("/stock-app/broadcast", headers, JSON.stringify({"content": "REQ"}));
+  stompClient.send("/stock-app/broadcast-to-test", headers, JSON.stringify({"content": "REQ"}));
 }
 
 function handleConnectedToStompWs() {
@@ -40,7 +40,7 @@ function handleConnectedToStompWs() {
 
   var subsResult = stompClient.subscribe("/topic/test", handleReceivedStompMsg, subsHeaders);
 
-  console.info(`Subscribed. ID: ${subsResult.id}. Unsubscribe: ${subsResult.unsubscribe}`);
+  console.info(`Subscribed. ID: ${subsResult.id}. Unsubscribe: ${subsResult.unsubscribe}`, subsResult);
 
   sendDummyWSRequest();
 }
