@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 public class StockWebSocketController {
   private static final Logger logger = LoggerFactory.getLogger(StockWebSocketController.class);
 
-  @SubscribeMapping("/test")
+  @SubscribeMapping("/stock")
   public String subscribeToTestTopic() {
     // When a user subscribes to topic test, Spring will automatically send a message containing the return value
     // Refer to: https://dimitr.im/websockets-spring-boot#defining-a-controller
@@ -33,7 +33,7 @@ public class StockWebSocketController {
   }
 
   @MessageMapping("/broadcast-to-test")
-  @SendTo("/topic/test")
+  @SendTo("/topic/stock")
   public TestMessage testBroadcastToTest(TestMessage inMsg) {
     try {
       Thread.sleep(3000L);
@@ -45,7 +45,7 @@ public class StockWebSocketController {
   }
 
   @MessageMapping("dialog")
-  @SendToUser
+  @SendToUser("/queue/command")
   public TestMessage testDialog(TestMessage inMsg) {
     try {
       Thread.sleep(3000L);

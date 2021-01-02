@@ -38,15 +38,27 @@ function handleConnectedToStompWs() {
   // Headers can include a subscription ID, otherwise a random ID will be generated
   var subsHeaders = {};
 
-  var subsResult = stompClient.subscribe("/topic/test", handleReceivedStompMsg, subsHeaders);
+  // Subscribe to stock events topic, which receives genenral events all users can listen for. The initial status
+  // of the stock will also be received through this topic, immediately upon subscription
+  var subsStockTopicRes = stompClient.subscribe("/topic/stock", handleStockTopicEvent, subsHeaders);
+  console.info(`Subscribed. ID: ${subsStockTopicRes.id}. Unsubscribe: ${subsStockTopicRes.unsubscribe}`);
 
-  console.info(`Subscribed. ID: ${subsResult.id}. Unsubscribe: ${subsResult.unsubscribe}`, subsResult);
+  // Subscribe to the user queue, which receives events aimed specifically at the current user. Destinations
+  // prefixed with /user/ are recognized by Spring's STOMP to target the specific user who submitted the request
+  var subsCmdQueueRes = stompClient.subscribe("/user/queue/command", handleCommandQueueEvent);
+  console.info(`Subscribed. ID: ${subsCmdQueueRes.id}. Unsubscribe: ${subsCmdQueueRes.unsubscribe}`);
+
+  renderStockInContainer({}, $("#stockContainer"));
 
   sendDummyWSRequest();
 }
 
-function handleReceivedStompMsg(msg) {
-  console.log("Got WS message: ", msg);
+function handleStockTopicEvent(msg) {
+  console.log("Got stock topic WS message: %s", msg.body, msg);
+}
+
+function handleCommandQueueEvent(msg) {
+  console.log("Got command queue WS message: %s", msg.body, msg);
 }
 
 function handleConnectError(stompErrorFrame) {
@@ -79,9 +91,5 @@ function disconnect() {
 }
 
 $(document).ready(function () {
-  console.debug("Document ready");
-
   connect();
 });
-
-console.debug("Main script loaded");

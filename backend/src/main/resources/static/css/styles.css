@@ -1,0 +1,22 @@
+table {
+    border: 1px solid #333333;
+    border-spacing: 0;
+}
+
+table tr {
+    padding: 0;
+    margin: 0;
+}
+
+table th {
+    text-align: left;
+    border: 1px solid #333333;
+    background-color: #EDEDED;
+    padding: 0.5em;
+}
+
+table td {
+    min-width: 10em;
+    border: 1px solid #333333;
+    padding: 0.5em;
+}
