@@ -1,20 +1,22 @@
-function renderItemRow(item) {
-  return $("<tr><td>Mk.I</td><td>555</td></tr>");
-}
-
 function renderStockInContainer(stock, container) {
   var stockTable = $(
       "<table id='stockTable'>" +
         "<thead>" +
-          "<tr><th>Item</th><th>In Stock</th></tr>" +
+          "<tr><th>Item</th><th>Model</th><th>In Stock</th></tr>" +
         "</thead>" +
         "<tbody></tbody>" +
       "</table>"
   );
 
-  var stockTableBody = stockTable.find("tbody");
-
-  stockTableBody.append(renderItemRow({}));
-
   container.append(stockTable);
+}
+
+function renderItemStock(itemStock, sku) {
+  var itemModel = _.get(itemStock, "item.model", "");
+  var amntInStock = _.get(itemStock, "amountInStock", 0);
+
+  var stkTblBody = $("#stockTable tbody");
+  var itemRow = $(`<tr id="irow-${sku}"><td>${sku}</td><td>${itemModel}</td><td>${amntInStock}</td></tr>`);
+
+  stkTblBody.append(itemRow);
 }

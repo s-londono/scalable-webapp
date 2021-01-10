@@ -1,8 +1,13 @@
 package edu.sierralima.lab.backend.controller;
 
+import edu.sierralima.lab.backend.dto.frontend.Event;
+import edu.sierralima.lab.backend.dto.frontend.Event.Type;
+import edu.sierralima.lab.backend.logic.InventoryKeeper;
+import edu.sierralima.lab.backend.model.Stock;
 import edu.sierralima.lab.backend.model.TestMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -13,11 +18,23 @@ import org.springframework.stereotype.Controller;
 public class StockWebSocketController {
   private static final Logger logger = LoggerFactory.getLogger(StockWebSocketController.class);
 
+  private InventoryKeeper inventoryKeeper;
+
+  @Autowired
+  public StockWebSocketController(InventoryKeeper inventoryKeeper) {
+    this.inventoryKeeper = inventoryKeeper;
+  }
+
   @SubscribeMapping("/stock")
-  public String subscribeToTestTopic() {
+  public Event subscribeToTestTopic() {
+    // Get current stock
+    Stock stock = inventoryKeeper.getStock();
+
+    Event<Stock> curStockEvent = new Event<>(Type.STOCK_SNAPSHOT, stock);
+
     // When a user subscribes to topic test, Spring will automatically send a message containing the return value
     // Refer to: https://dimitr.im/websockets-spring-boot#defining-a-controller
-    return "Roger. Subscribed";
+    return curStockEvent;
   }
 
   @MessageMapping("/broadcast")

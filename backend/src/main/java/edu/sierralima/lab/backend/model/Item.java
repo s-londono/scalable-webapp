@@ -6,12 +6,9 @@ public class Item {
 
   private String model;
 
-  private long numInStock;
-
   public Item(String sku, String model) {
     this.sku = sku;
     this.model = model;
-    this.numInStock = 0;
   }
 
   public String getSku() {
@@ -26,20 +23,11 @@ public class Item {
     this.model = model;
   }
 
-  public long getNumInStock() {
-    return numInStock;
-  }
-
-  public void setNumInStock(long numInStock) {
-    this.numInStock = numInStock;
-  }
-
   @Override
   public String toString() {
     return "Item{" +
         "sku='" + sku + '\'' +
         ", model='" + model + '\'' +
-        ", numInStock=" + numInStock +
         '}';
   }
 

@@ -54,7 +54,26 @@ function handleConnectedToStompWs() {
 }
 
 function handleStockTopicEvent(msg) {
-  console.log("Got stock topic WS message: %s", msg.body, msg);
+  var msgBody = JSON.parse(_.get(msg, "body", "{}"));
+  var evType = _.get(msgBody, "type", null);
+  var evPayload = _.get(msgBody, "payload", null);
+
+  if (evType === null) {
+    console.log("Unrecognized event: %s", evType);
+  }
+
+  switch (evType) {
+    case "STOCK_SNAPSHOT":
+      console.log("Processing StockSnapshot event. Payload: %s", JSON.stringify(evPayload));
+      var itemsInStock = _.get(evPayload  , "skuItemsInStock", {});
+
+      _.forOwn(itemsInStock, renderItemStock);
+
+      break;
+
+    default:
+      console.error("Unknown event type. Discarded. Body: %s. ", _.get(msg, "body", "{}"), msg);
+  }
 }
 
 function handleCommandQueueEvent(msg) {
