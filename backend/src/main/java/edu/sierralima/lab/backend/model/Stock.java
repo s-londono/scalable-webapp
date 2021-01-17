@@ -42,6 +42,10 @@ public class Stock {
     logger.debug("Stock updated. {}. Prev: {}", curItemStock, curAmount);
   }
 
+  public ItemStock getItemSotck(String sku) {
+    return skuItemStock.get(sku);
+  }
+
   public Map<String, ItemStock> getSkuItemsInStock() {
     return skuItemStock;
   }

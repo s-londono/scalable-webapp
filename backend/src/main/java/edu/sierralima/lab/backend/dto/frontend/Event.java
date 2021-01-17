@@ -40,6 +40,8 @@ public class Event <T> {
   }
 
   public enum Type {
-    STOCK_SNAPSHOT
+    STOCK_SNAPSHOT,
+    STOCK_UPDATE,
+    REQUEST_ALTER_ITEM_STOCK,
   }
 }

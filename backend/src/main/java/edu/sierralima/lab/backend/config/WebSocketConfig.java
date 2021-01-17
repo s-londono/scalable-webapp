@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     // Prefix for messages that are bound for methods annotated with @MessageMapping (e.g. /stock-app/broadcast)
     // Note that adding /topic is required to map methods to topic subscriptions using @SubscribeMapping
-    config.setApplicationDestinationPrefixes("/stock-app", "/topic");
+    config.setApplicationDestinationPrefixes("/stock-app", "/topic", "/user/queue");
   }
 
   @Override

@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--/*@thymesVar id="result" type="java.util.Map"*/-->
-<p th:text="'Stock N5: ' + ${stock}"/>
-<div id="stockContainer"/>
+<input type="hidden" th:value="'Stock N5: ' + ${stock}"/>
+<div id="stockContainer" class="stock-container"/>
 </body>
 </html>

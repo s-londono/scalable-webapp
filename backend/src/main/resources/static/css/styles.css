@@ -1,3 +1,11 @@
+.stock-container {
+    margin-top: 5em;
+}
+
+.stock-container table {
+    margin: auto;
+}
+
 table {
     border: 1px solid #333333;
     border-spacing: 0;
@@ -19,4 +27,10 @@ table td {
     min-width: 10em;
     border: 1px solid #333333;
     padding: 0.5em;
+}
+
+.buttons-cell button {
+    margin-right: 1em;
+    font-weight: bold;
+    width: 1.8em;
 }
