@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision :shell, path: "bootstrap.sh"
+  #config.vm.provision :shell, path: "bootstrap.sh"
 
   config.vm.provision :shell, name: "hznode", run: "always", 
     inline: "/opt/hznode/runhznode.sh"
@@ -87,27 +87,38 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "node2" do |node2|
+    node2.vm.provision :shell, path: "bootstrap-hznode.sh"
     node2.vm.hostname = "node2"    
     node2.vm.network "forwarded_port", guest: 5701, host: 5712
     node2.vm.network "private_network", ip: "172.28.128.12", hostname: true
   end
 
   config.vm.define "node3" do |node3|
+    node3.vm.provision :shell, path: "bootstrap-hznode.sh"
     node3.vm.hostname = "node3"
     node3.vm.network "forwarded_port", guest: 5701, host: 5713
     node3.vm.network "private_network", ip: "172.28.128.13", hostname: true
   end
 
-  config.vm.define "node4" do |node4|
-    node4.vm.hostname = "node4"
-    node4.vm.network "forwarded_port", guest: 5701, host: 5714
-    node4.vm.network "private_network", ip: "172.28.128.14", hostname: true
-  end
+#   config.vm.define "node4" do |node4|
+#     node4.vm.provision :shell, path: "bootstrap-hznode.sh"
+#     node4.vm.hostname = "node4"
+#     node4.vm.network "forwarded_port", guest: 5701, host: 5714
+#     node4.vm.network "private_network", ip: "172.28.128.14", hostname: true
+#   end
+#
+#   config.vm.define "node5" do |node5|
+#     node5.vm.provision :shell, path: "bootstrap-hznode.sh"
+#     node5.vm.hostname = "node5"
+#     node5.vm.network "forwarded_port", guest: 5701, host: 5715
+#     node5.vm.network "private_network", ip: "172.28.128.15", hostname: true
+#   end
 
-  config.vm.define "node5" do |node5|
-    node5.vm.hostname = "node5"
-    node5.vm.network "forwarded_port", guest: 5701, host: 5715
-    node5.vm.network "private_network", ip: "172.28.128.15", hostname: true
+  config.vm.define "backend1" do |backend1|
+    backend1.vm.provision :shell, path: "bootstrap-backend.sh"
+    backend1.vm.hostname = "backend1"
+    backend1.vm.network "forwarded_port", guest: 15672, host: 15672
+    backend1.vm.network "private_network", ip: "172.28.128.16", hostname: true
   end
 
 end

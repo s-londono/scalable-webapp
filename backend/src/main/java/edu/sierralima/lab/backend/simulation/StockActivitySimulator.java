@@ -37,6 +37,9 @@ public class StockActivitySimulator {
       double curStockAmount = itemStock.getAmountInStock();
       double newStockAmount = curStockAmount + (double) (rand.nextInt(1001) - Math.round(curStockAmount));
 
+      // Update ItemStock in the inventory
+      itemStock.setAmountInStock(newStockAmount);
+
       ItemStock newItemStock = new ItemStock(itemStock.getItem(), newStockAmount);
       Event<ItemStock> ev = new Event<>(Event.Type.STOCK_UPDATE, newItemStock);
 
