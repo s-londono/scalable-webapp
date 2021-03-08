@@ -69,12 +69,13 @@ Vagrant.configure("2") do |config|
   # SHELL
   #config.vm.provision :shell, path: "bootstrap.sh"
 
-  config.vm.provision :shell, name: "hznode", run: "always", 
-    inline: "/opt/hznode/runhznode.sh"
+  #config.vm.provision :shell, name: "hznode", run: "always", inline: "/opt/hznode/runhznode.sh"
 
   # Definition  of nultiple machines. General configuration applies first, then 
   # the configuration of each node, in the listed order
   config.vm.define "node1" do |node1|
+    node1.vm.provision :shell, path: "bootstrap-hznode.sh"
+    node1.vm.provision :shell, name: "hznode", run: "always", inline: "/opt/hznode/runhznode.sh"
     node1.vm.hostname = "node1"
     # Access port 5701 on the virtual machine through port 5711 on the host. Can be bound to a specific IP. Default: TCP
     node1.vm.network "forwarded_port", guest: 5701, host: 5711
@@ -88,13 +89,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "node2" do |node2|
     node2.vm.provision :shell, path: "bootstrap-hznode.sh"
-    node2.vm.hostname = "node2"    
+    node2.vm.provision :shell, name: "hznode", run: "always", inline: "/opt/hznode/runhznode.sh"
+    node2.vm.hostname = "node2"
     node2.vm.network "forwarded_port", guest: 5701, host: 5712
     node2.vm.network "private_network", ip: "172.28.128.12", hostname: true
   end
 
   config.vm.define "node3" do |node3|
     node3.vm.provision :shell, path: "bootstrap-hznode.sh"
+    node3.vm.provision :shell, name: "hznode", run: "always", inline: "/opt/hznode/runhznode.sh"
     node3.vm.hostname = "node3"
     node3.vm.network "forwarded_port", guest: 5701, host: 5713
     node3.vm.network "private_network", ip: "172.28.128.13", hostname: true

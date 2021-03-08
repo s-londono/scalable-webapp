@@ -59,7 +59,7 @@ function handleConnectedToStompWs() {
 
   // Subscribe to stock events topic, which receives genenral events all users can listen for. The initial status
   // of the stock will also be received through this topic, immediately upon subscription
-  var subsStockTopicRes = stompClient.subscribe("/topic/stock/event", handleStockTopicEvent, subsHeaders);
+  var subsStockTopicRes = stompClient.subscribe("/topic/stockevent", handleStockTopicEvent, subsHeaders);
   console.info(`Subscribed topic stock. ID: ${subsStockTopicRes.id}. Unsubs: ${subsStockTopicRes.unsubscribe}`);
 
   // Subscribe to the user queue 'command', which receives events aimed specifically at the current user. Destinations
@@ -117,7 +117,7 @@ function handleItemStockDelta(sku, delta) {
     }
   };
 
-  stompClient.send("/stock-app/stock/operation", headers, JSON.stringify(actionBody));
+  stompClient.send("/stock-app/stockoperation", headers, JSON.stringify(actionBody));
 }
 
 function handleConnectError(stompErrorFrame) {

@@ -47,4 +47,8 @@ sudo tee -a /etc/security/limits.conf <<EOF
 * hard nofile 200000
 EOF
 
+sudo tee -a /etc/rabbitmq/rabbitmq.conf <<EOF
+stomp.listeners.tcp.1 = 172.28.128.16:61613
+EOF
+
 sudo shutdown -r now

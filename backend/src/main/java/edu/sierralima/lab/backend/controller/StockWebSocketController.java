@@ -28,7 +28,7 @@ public class StockWebSocketController {
     this.inventoryKeeper = inventoryKeeper;
   }
 
-  @SubscribeMapping("/stock/event")
+  @SubscribeMapping("/stockevent")
   @SendToUser("/queue/response")
   public Event<Stock> subscribeToTestTopic() {
     // Get current stock
@@ -44,8 +44,8 @@ public class StockWebSocketController {
     logger.debug("Subscribed to command queue");
   }
 
-  @MessageMapping("/stock/operation")
-  @SendTo("/topic/stock/event")
+  @MessageMapping("/stockoperation")
+  @SendTo("/topic/stockevent")
   public Event<ItemStock> processStockOperation(Event<ItemStock> op) {
     if (op == null || op.getType() == null) {
       return null;

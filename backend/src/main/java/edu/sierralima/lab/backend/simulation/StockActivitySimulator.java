@@ -43,7 +43,7 @@ public class StockActivitySimulator {
       ItemStock newItemStock = new ItemStock(itemStock.getItem(), newStockAmount);
       Event<ItemStock> ev = new Event<>(Event.Type.STOCK_UPDATE, newItemStock);
 
-      msgTmplt.convertAndSend("/topic/stock/event", ev);
+      msgTmplt.convertAndSend("/topic/stockevent", ev);
     }
   }
 
