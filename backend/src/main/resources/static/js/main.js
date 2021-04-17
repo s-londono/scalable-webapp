@@ -29,10 +29,10 @@ function stompClientFactory() {
 function connect() {
   stompClient = stompClientFactory();
 
-  // Client will send heartbeats every 10s (Default: 10s?)
-  stompClient.heartbeat.outgoing = 10000;
+  // Client will send heartbeats (Pings) every X seconds. Do not send Pings, as these may cause spurious disconnects
+  stompClient.heartbeat.outgoing = 0;
 
-  // Client checks for heartbeats from the server every 15s (Default: 10s?)
+  // Client checks for heartbeats from the server (Pongs) every 15s
   stompClient.heartbeat.incoming = 15000;
 
   // Add STOMP connection headers if necessary (e.g. login, passcode, client-id)
