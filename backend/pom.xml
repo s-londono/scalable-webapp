@@ -16,7 +16,7 @@
   <description>Backend REST services for Java labs</description>
   <properties>
     <java.version>8</java.version>
-    <hazelcast.version>4.1.1</hazelcast.version>
+    <hazelcast.version>4.1.10</hazelcast.version>
   </properties>
   <dependencies>
     <!-- Note that spring-boot-starter-websocket already includes spring-boot-starter-web -->
